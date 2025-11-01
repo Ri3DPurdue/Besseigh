@@ -33,7 +33,7 @@ public class Drive extends SubsystemBase {
     private final int leftMotorId = 9;
     private final int rightMotorId = 10;
     private final double gearing = 15;
-    private final double wheelRadius = Units.inchesToMeters(8 / 2);
+    private final double wheelRadius = Units.inchesToMeters(8. / 2.);
     private final double trackWidth = Units.inchesToMeters(20);
     private final double maxAutoSpeed = 0.2 * Units.rotationsPerMinuteToRadiansPerSecond(5676) * wheelRadius;
 
