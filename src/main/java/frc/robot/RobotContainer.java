@@ -20,9 +20,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     Command arcadeDrive = drive.runWithJoystick(
-      () -> MathUtil.applyDeadband(controller.getLeftX(), 0.1),
-      () -> MathUtil.applyDeadband(controller.getRightY(), 0.1)
+      () -> MathUtil.applyDeadband(-controller.getLeftY(), 0.1),
+      () -> MathUtil.applyDeadband(-controller.getRightX(), 0.1)
     );
+    Command ntDrive = drive.runWithNetworktables();
     drive.setDefaultCommand(arcadeDrive);
   }
 
