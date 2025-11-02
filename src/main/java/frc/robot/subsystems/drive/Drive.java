@@ -114,10 +114,6 @@ public class Drive extends SubsystemBase {
         return driveCommand(() -> ntLinearSpeed, () -> ntRotationalSpeed);
     }
 
-    public Command driveInCircle(double linearSpeed, double angularSpeed) {
-        return driveCommand(() -> linearSpeed, () -> angularSpeed);
-    }
-
     public Command driveInCircleExact(double diameter, double velocity) {
         double radius = diameter / 2;
         double inner = velocity * (radius - trackWidth / 2) / radius;
