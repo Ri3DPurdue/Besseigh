@@ -57,7 +57,7 @@ public class Drive extends SubsystemBase {
         config.encoder.positionConversionFactor(2 * Math.PI / gearing * wheelRadius);
         config.encoder.velocityConversionFactor(2 * Math.PI / gearing * wheelRadius / 60);
         // Sim Values: p = 0.3, ff = 0.25
-        config.closedLoop.pidf(0.3, 0, 0, 0.25);
+        config.closedLoop.pidf(0, 0, 0, 0);
         if (RobotBase.isReal()) {
             leftMotor = new SparkMaxReal(leftID, new SparkMaxConfig().apply(config).inverted(false));
             rightMotor = new SparkMaxReal(rightID, new SparkMaxConfig().apply(config).inverted(true));
