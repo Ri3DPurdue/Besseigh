@@ -1,4 +1,4 @@
-package frc.robot.subsystems.drive;
+package frc.robot.hardware;
 
 public interface SparkMaxIO {
     public void setVelocity(double speeds);

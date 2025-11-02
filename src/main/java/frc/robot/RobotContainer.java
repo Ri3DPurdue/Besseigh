@@ -25,6 +25,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return drive.driveInCircleExact(2, 0.5);
+    return drive.driveInCircle(2, 0.5, true);
   }
 }
