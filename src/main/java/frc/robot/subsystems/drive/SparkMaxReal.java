@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drive;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -15,8 +16,8 @@ public class SparkMaxReal implements SparkMaxIO {
     }
 
     @Override
-    public void setVoltage(double volts) {
-        motor.setVoltage(volts);
+    public void setVelocity(double speed) {
+        motor.getClosedLoopController().setReference(speed, ControlType.kVelocity);
     }
 
     @Override
@@ -32,6 +33,11 @@ public class SparkMaxReal implements SparkMaxIO {
     @Override
     public double getSpeed() {
         return motor.getEncoder().getVelocity();
+    }
+
+    @Override
+    public double getCurrent() {
+        return motor.getOutputCurrent();
     }
 
     @Override
