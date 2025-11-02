@@ -4,11 +4,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.MathUtil;
+import dev.doglog.DogLog;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.drive.Drive;
 
 public class RobotContainer {
   private final Drive drive = new Drive();
@@ -16,18 +15,16 @@ public class RobotContainer {
 
   public RobotContainer() {
     configureBindings();
+    DogLog.setEnabled(true);
   }
 
   private void configureBindings() {
-    Command arcadeDrive = drive.runWithJoystick(
-      () -> MathUtil.applyDeadband(-controller.getLeftY(), 0.1),
-      () -> MathUtil.applyDeadband(-controller.getRightX(), 0.1)
-    );
-    Command ntDrive = drive.runWithNetworktables();
-    drive.setDefaultCommand(arcadeDrive);
+    Command arcadeDrive = drive.joystickDrive(controller);
+    Command ntDrive = drive.ntDrive();
+    drive.setDefaultCommand(ntDrive);
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return drive.driveInCircle(1, 1);
   }
 }
