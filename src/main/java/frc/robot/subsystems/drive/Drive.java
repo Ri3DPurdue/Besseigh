@@ -121,4 +121,11 @@ public class Drive extends SubsystemBase {
         return driveCommand(() -> linearSpeed, () -> angularSpeed);
     }
 
+    public Command driveInCircleExact(double diameter, double velocity) {
+        double outer = (2 * diameter * velocity) / (2 * diameter - trackWidth);
+        double inner = 2 * velocity - outer;
+        ChassisSpeeds speeds = kinematics.toChassisSpeeds(new DifferentialDriveWheelSpeeds(inner, outer));
+        return run(() -> drive(speeds));
+    }
+
 }
