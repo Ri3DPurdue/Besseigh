@@ -96,11 +96,11 @@ public class Drive extends SubsystemBase {
         sim.update(0.02);
         leftMotor.setState(sim.getLeftPositionMeters(), sim.getLeftVelocityMetersPerSecond());
         rightMotor.setState(sim.getRightPositionMeters(), sim.getRightVelocityMetersPerSecond());
-        gyro.updateSim(kinematics.toChassisSpeeds(new DifferentialDriveWheelSpeeds(leftMotor.getSpeed(), rightMotor.getSpeed())).omegaRadiansPerSecond, 0.02);
     }
     
     @Override
     public void periodic() {
+        gyro.updateSim(kinematics.toChassisSpeeds(new DifferentialDriveWheelSpeeds(leftMotor.getSpeed(), rightMotor.getSpeed())).omegaRadiansPerSecond, 0.02);
         odometry.update(Rotation2d.fromRadians(gyro.getAngle()), new DifferentialDriveWheelPositions(leftMotor.getPosition(), rightMotor.getPosition()));
         DogLog.log("Odometry Pose", odometry.getPoseMeters());
         DogLog.log("Left Speed", leftMotor.getSpeed());
