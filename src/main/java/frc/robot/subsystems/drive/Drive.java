@@ -79,6 +79,8 @@ public class Drive extends SubsystemBase {
         DifferentialDriveWheelVoltages voltages = feedforward.calculate(leftMotor.getSpeed(), wheelSpeeds.leftMetersPerSecond, rightMotor.getSpeed(), wheelSpeeds.rightMetersPerSecond, 0.02);
         leftMotor.setVoltage(voltages.left);
         rightMotor.setVoltage(voltages.right);
+        DogLog.log("Left Setpoint", wheelSpeeds.leftMetersPerSecond);
+        DogLog.log("Right Setpoint", wheelSpeeds.rightMetersPerSecond);
     }
     
     @Override
@@ -122,8 +124,9 @@ public class Drive extends SubsystemBase {
     }
 
     public Command driveInCircleExact(double diameter, double velocity) {
-        double outer = (2 * diameter * velocity) / (2 * diameter - trackWidth);
-        double inner = 2 * velocity - outer;
+        double radius = diameter / 2;
+        double inner = velocity * (radius - trackWidth / 2) / radius;
+        double outer = velocity * (radius + trackWidth / 2) / radius;
         ChassisSpeeds speeds = kinematics.toChassisSpeeds(new DifferentialDriveWheelSpeeds(inner, outer));
         return run(() -> drive(speeds));
     }
