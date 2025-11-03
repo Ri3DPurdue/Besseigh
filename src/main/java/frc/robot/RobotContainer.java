@@ -21,10 +21,10 @@ public class RobotContainer {
   private void configureBindings() {
     Command arcadeDrive = drive.joystickDrive(controller);
     Command ntDrive = drive.ntDrive();
-    drive.setDefaultCommand(ntDrive);
+    drive.setDefaultCommand(arcadeDrive);
   }
 
   public Command getAutonomousCommand() {
-    return drive.driveInCircle(2, 0.5, true);
+    return drive.driveInCircle(1.5, 0.5, true);
   }
 }

@@ -53,11 +53,10 @@ public class Drive extends SubsystemBase {
 
     public Drive() {
         SparkMaxConfig config = new SparkMaxConfig();
-        config.smartCurrentLimit(20);
+        config.smartCurrentLimit(40);
         config.encoder.positionConversionFactor(2 * Math.PI / gearing * wheelRadius);
         config.encoder.velocityConversionFactor(2 * Math.PI / gearing * wheelRadius / 60);
-        // Sim Values: p = 0.3, ff = 0.25
-        config.closedLoop.pidf(0, 0, 0, 0);
+        config.closedLoop.pidf(0.3, 0, 0, 0.35);
         if (RobotBase.isReal()) {
             leftMotor = new SparkMaxReal(leftID, new SparkMaxConfig().apply(config).inverted(false));
             rightMotor = new SparkMaxReal(rightID, new SparkMaxConfig().apply(config).inverted(true));
@@ -120,7 +119,7 @@ public class Drive extends SubsystemBase {
     public Command joystickDrive(XboxController xbox) {
         return driveCommand(
             () -> MathUtil.applyDeadband(-xbox.getLeftY(), 0.2),
-            () -> MathUtil.applyDeadband(-xbox.getRightX(), 0.2)
+            () -> 5 * MathUtil.applyDeadband(-xbox.getRightX(), 0.2)
         );
     }
 
