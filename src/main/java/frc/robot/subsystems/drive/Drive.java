@@ -123,6 +123,20 @@ public class Drive extends SubsystemBase {
         );
     }
 
+    public Command joystickDriveFast(XboxController xbox) {
+        return driveCommand(
+            () -> 2.0 * MathUtil.applyDeadband(-xbox.getLeftY(), 0.2),
+            () -> 2.0 * 5 * MathUtil.applyDeadband(-xbox.getRightX(), 0.2)
+        );
+    }
+
+    public Command joystickDriveSlow(XboxController xbox) {
+        return driveCommand(
+            () -> 0.5 * MathUtil.applyDeadband(-xbox.getLeftY(), 0.2),
+            () -> 0.5 * 5 * MathUtil.applyDeadband(-xbox.getRightX(), 0.2)
+        );
+    }
+
     public Command ntDrive() {
         return driveCommand(() -> ntLinearSpeed, () -> ntRotationalSpeed);
     }
